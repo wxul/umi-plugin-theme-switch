@@ -1,0 +1,4 @@
+.normal {
+  background: var(--bg-global-color);
+  color: var(--font-main-color);
+}
