@@ -6,5 +6,6 @@
 /example/pages/.umi
 /example/pages/.umi-production
 /lib
+/tmp
 # misc
 .DS_Store

@@ -1,6 +1,6 @@
 {
   "name": "umi-plugin-theme-switch",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "umi theme switch",
   "authors": {
     "name": "Albert",
@@ -22,7 +22,9 @@
   "devDependencies": {
     "cross-env": "^6.0.3",
     "father-build": "^1.8.0",
+    "globby": "^10.0.1",
     "np": "^5.0.3",
+    "prettier": "^1.19.1",
     "umi": "^2.9.0",
     "umi-types": ">= 0.4.0-beta.4"
   },
