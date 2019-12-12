@@ -6,7 +6,7 @@
     "name": "Albert",
     "email": "wlj_3322@163.com"
   },
-  "repository": "/umi-plugin-theme-switch",
+  "repository": "https://github.com/wxul/umi-plugin-theme-switch",
   "peerDependencies": {
     "umi": "2.x || ^2.9.0-0"
   },
