@@ -135,6 +135,16 @@ export default function(api: IApi, options: UmiPluginThemeSwitchOptions) {
     ]);
   });
 
+  // 默认主题
+  api.addEntryCodeAhead(`
+    ;(function(){
+      window['_default_theme'] = ${JSON.stringify(_defaultTheme)};
+      if(typeof localStorage !== 'undefined'){
+        window.localStorage.setItem('umi_theme', ${JSON.stringify(_defaultTheme)});
+      }
+    })();
+  `);
+
   // 记住上次选择过的主题
   if (remember) {
     api.addEntryCodeAhead(`

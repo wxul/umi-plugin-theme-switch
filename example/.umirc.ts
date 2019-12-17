@@ -24,12 +24,12 @@ export default {
         //   }
         // ],
         themes: 'themes/',
-        defaultTheme: 'light',
-        scope: '#root',
-        remember: true,
-        autoDetectDarkMode: {
-          enable: true,
-        },
+        // defaultTheme: 'light',
+        // scope: '#root',
+        // remember: true,
+        // autoDetectDarkMode: {
+        //   enable: true,
+        // },
       },
     ],
   ],
