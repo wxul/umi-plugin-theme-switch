@@ -21,6 +21,7 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "cross-env APP_ROOT=$PWD/example umi dev",
+    "start:basic": "cross-env APP_ROOT=$PWD/examples/basic umi dev",
     "build": "father-build",
     "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish"
   },

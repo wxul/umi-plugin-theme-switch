@@ -1,0 +1,6 @@
+.normal {
+  padding: 20px;
+  background: var(--bg-global-color);
+  color: var(--font-main-color);
+  transition: all linear 0.2s;
+}
