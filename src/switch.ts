@@ -1,4 +1,4 @@
-/// <reference path="./typings.d.ts" />
+/// <reference path="./index.d.ts" />
 /**
  * TODO
  */
