@@ -26,6 +26,10 @@ export default {
 }
 ```
 
+## Examples
+
+[Examples](https://github.com/wxul/umi-plugin-theme-switch/tree/master/examples)
+
 ## Options
 
 ***
