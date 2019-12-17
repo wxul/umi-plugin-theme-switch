@@ -23,7 +23,8 @@ export default {
         //     }
         //   }
         // ],
-        themes: 'themes/',
+        // themes: 'themes',
+        themes: join(__dirname, 'themes'),
         // defaultTheme: 'light',
         // scope: '#root',
         // remember: true,

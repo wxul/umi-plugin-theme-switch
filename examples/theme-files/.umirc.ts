@@ -1,5 +1,4 @@
 import { IConfig } from 'umi-types';
-import { join } from 'path';
 
 export default {
   routes: [{ path: '/', component: './index' }],
@@ -7,7 +6,9 @@ export default {
     [
       'umi-plugin-theme-switch',
       {
-        themes: 'themes/',
+        themes: 'themes', // relative path
+        // same as absolute path:
+        // themes: path.join(__dirname, 'themes'),
         defaultTheme: 'light',
       },
     ],

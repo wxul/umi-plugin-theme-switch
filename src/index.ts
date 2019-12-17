@@ -81,7 +81,7 @@ export function parseFilepathThemes(filepath: string, cwd: string) {
   const path = resolvePath(cwd, filepath);
   return globby.sync('*.{js,json}', { cwd: path }).map(name => {
     const _name = name.substring(0, name.lastIndexOf('.'));
-    const fullpath = join(cwd, filepath, name);
+    const fullpath = join(path, name);
     let variables = /\.ts$/.test(name) ? requireTSFile(fullpath) : require(fullpath);
     return {
       name: _name,
