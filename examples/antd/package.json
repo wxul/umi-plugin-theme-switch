@@ -1,0 +1,26 @@
+{
+  "name": "umi-plugin-theme-switch-examples-antd",
+  "dependencies": {
+    "antd": "^3.26.6",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "umi": "latest",
+    "umi-plugin-react": "^1.14.12",
+    "umi-plugin-theme-switch": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^16.0.0",
+    "typescript": "^3.4.0"
+  },
+  "scripts": {
+    "build": "umi build",
+    "start": "umi dev"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

@@ -1,0 +1,20 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: var(--global-bg);
+}
+
+* {
+  transition: all linear 0.2s;
+}
