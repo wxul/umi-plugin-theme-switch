@@ -134,13 +134,20 @@ export default function(api: IApi, options: UmiPluginThemeSwitchOptions) {
       },
     ]);
   });
-
+  // 记住上一次选中的主题
+  let detecteLastTheme = '';
+  if (remember) {
+    // 检测上一次缓存的主题 并当成默认主题设置 避免默认主题覆盖上一次选中的主题
+    detecteLastTheme = `__defaultTheme = window.localStorage.getItem('umi_theme') || __defaultTheme`;
+  }  
   // 默认主题
   api.addEntryCodeAhead(`
     ;(function(){
       window['_default_theme'] = ${JSON.stringify(_defaultTheme)};
+      var __defaultTheme = ${JSON.stringify(_defaultTheme)};
       if(typeof localStorage !== 'undefined'){
-        window.localStorage.setItem('umi_theme', ${JSON.stringify(_defaultTheme)});
+        ${detecteLastTheme}
+        window.localStorage.setItem('umi_theme', __defaultTheme);
       }
     })();
   `);
