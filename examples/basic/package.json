@@ -3,7 +3,7 @@
   "dependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "umi": "latest",
+    "umi": "^2.9.0",
     "umi-plugin-theme-switch": "latest"
   },
   "devDependencies": {

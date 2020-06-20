@@ -4,7 +4,7 @@
     "antd": "^3.26.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "umi": "latest",
+    "umi": "^2.9.0",
     "umi-plugin-react": "^1.14.12",
     "umi-plugin-theme-switch": "latest"
   },
