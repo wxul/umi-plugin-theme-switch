@@ -148,6 +148,7 @@ export default function(api: IApi) {
         UMI_THEME_SCOPE: JSON.stringify(scope),
       },
     ]);
+    return config
   });
   // 记住上一次选中的主题
   let detecteLastTheme = '';
