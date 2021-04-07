@@ -1,28 +1,25 @@
-import { IConfig } from 'umi-types';
+import { join } from 'path';
+import { IConfig } from 'umi';
 
 export default {
-  routes: [{ path: '/', component: './index' }],
-  plugins: [
-    [
-      'umi-plugin-theme-switch',
+  // plugins: [join(__dirname, '../../', 'lib/index.js')],
+  plugins: ['umi-plugin-theme-switch'],
+  'theme-switch': {
+    themes: [
       {
-        themes: [
-          {
-            name: 'light',
-            variables: {
-              '--bg-global-color': '#ccc',
-              '--font-main-color': '#333',
-            },
-          },
-          {
-            name: 'dark',
-            variables: {
-              '--bg-global-color': '#333',
-              '--font-main-color': '#ccc',
-            },
-          },
-        ],
+        name: 'light',
+        variables: {
+          '--bg-global-color': '#ccc',
+          '--font-main-color': '#333',
+        },
+      },
+      {
+        name: 'dark',
+        variables: {
+          '--bg-global-color': '#333',
+          '--font-main-color': '#ccc',
+        },
       },
     ],
-  ],
+  }
 } as IConfig;
