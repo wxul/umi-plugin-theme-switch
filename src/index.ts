@@ -108,15 +108,15 @@ export default function(api: IApi) {
       default: defaultConfig,
       schema(joi) {
         return joi.object({
-          themes: joi.array(),
+          themes: joi.allow(joi.array(), joi.string()),
           scope: joi.string(),
           autoDetectDarkMode: joi.boolean(),
-          remember:joi.boolean(),
+          remember: joi.boolean(),
           attribute: joi.string(),
         });
       },
     },
-  })
+  });
   let opts = Object.assign({}, defaultConfig, api.userConfig['theme-switch']);
 
   const { cwd } = api;
@@ -148,7 +148,7 @@ export default function(api: IApi) {
         UMI_THEME_SCOPE: JSON.stringify(scope),
       },
     ]);
-    return config
+    return config;
   });
   // 记住上一次选中的主题
   let detecteLastTheme = '';
@@ -157,7 +157,8 @@ export default function(api: IApi) {
     detecteLastTheme = `__defaultTheme = window.localStorage.getItem('umi_theme') || __defaultTheme`;
   }
   // 默认主题
-  api.addEntryCodeAhead(() => `
+  api.addEntryCodeAhead(
+    () => `
     ;(function(){
       window['_default_theme'] = ${JSON.stringify(_defaultTheme)};
       var __defaultTheme = ${JSON.stringify(_defaultTheme)};
@@ -166,11 +167,13 @@ export default function(api: IApi) {
         window.localStorage.setItem('umi_theme', __defaultTheme);
       }
     })();
-  `);
+  `
+  );
 
   // 记住上次选择过的主题
   if (remember) {
-    api.addEntryCodeAhead(() => `
+    api.addEntryCodeAhead(
+      () => `
       ;(function(){
         const theme = typeof localStorage !== 'undefined' ? window.localStorage.getItem('umi_theme') : '';
         if(!theme) return;
@@ -178,12 +181,14 @@ export default function(api: IApi) {
           e.setAttribute(UMI_THEME_ATTRIBUTE, theme);
         })
       })();
-    `);
+    `
+    );
   }
 
   // 自动检测暗色主题，如果remember也为true，则只在页面没有设置过theme的情况下才检测
   if (autoDetectDarkMode && autoDetectDarkMode.enable) {
-    api.addEntryCodeAhead(() => `
+    api.addEntryCodeAhead(
+      () => `
       ;(function(){
         const isBrowserDarkMode = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         if(!isBrowserDarkMode) return;
@@ -195,6 +200,7 @@ export default function(api: IApi) {
           })
         }
       })();
-    `);
+    `
+    );
   }
 }
