@@ -1,6 +1,6 @@
 // ref:
 // - https://umijs.org/plugin/develop.html
-import { IApi } from 'umi-types';
+import { IApi } from 'umi';
 import { isAbsolute, join } from 'path';
 import assert from 'assert';
 import globby from 'globby';
@@ -101,13 +101,28 @@ const defaultConfig: Partial<UmiPluginThemeSwitchOptions> = {
   attribute: 'umi-theme',
 };
 
-export default function(api: IApi, options: UmiPluginThemeSwitchOptions) {
-  let opts = Object.assign({}, defaultConfig, options);
+export default function(api: IApi) {
+  api.describe({
+    key: 'theme-switch',
+    config: {
+      default: defaultConfig,
+      schema(joi) {
+        return joi.object({
+          themes: joi.array(),
+          scope: joi.string(),
+          autoDetectDarkMode: joi.boolean(),
+          remember:joi.boolean(),
+          attribute: joi.string(),
+        });
+      },
+    },
+  })
+  let opts = Object.assign({}, defaultConfig, api.userConfig['theme-switch']);
 
   const { cwd } = api;
   const { themes, defaultTheme, attribute, scope, remember, autoDetectDarkMode } = opts;
 
-  assert(themes, '[umi-plugin-theme-switch]: option "themes" is reuired');
+  assert(themes, '[umi-plugin-theme-switch]: option "themes" is required');
 
   let _themes = typeof themes === 'string' ? parseFilepathThemes(themes, cwd) : themes;
 
@@ -116,32 +131,33 @@ export default function(api: IApi, options: UmiPluginThemeSwitchOptions) {
     _defaultTheme = _themes[0].name;
   }
 
-  api.onOptionChange(newOpts => {
-    opts = Object.assign({}, defaultConfig, newOpts);
-    api.restart();
-  });
+  // api.modifyConfig(newOpts => {
+  //   opts = Object.assign({}, defaultConfig, newOpts);
+  //   api.restartServer();
+  // });
 
-  api.addHTMLStyle({
+  api.addHTMLStyles(() => ({
     type: 'text/css',
     content: generateAllStyles(_themes, scope, attribute, _defaultTheme),
-  });
+  }));
 
-  api.chainWebpackConfig(config => {
-    config.plugin('theme-config').use(require('webpack/lib/DefinePlugin'), [
+  api.chainWebpack((config, { webpack }) => {
+    config.plugin('theme-config').use(webpack.DefinePlugin, [
       {
         UMI_THEME_ATTRIBUTE: JSON.stringify(attribute),
         UMI_THEME_SCOPE: JSON.stringify(scope),
       },
     ]);
+    return config
   });
   // 记住上一次选中的主题
   let detecteLastTheme = '';
   if (remember) {
     // 检测上一次缓存的主题 并当成默认主题设置 避免默认主题覆盖上一次选中的主题
     detecteLastTheme = `__defaultTheme = window.localStorage.getItem('umi_theme') || __defaultTheme`;
-  }  
+  }
   // 默认主题
-  api.addEntryCodeAhead(`
+  api.addEntryCodeAhead(() => `
     ;(function(){
       window['_default_theme'] = ${JSON.stringify(_defaultTheme)};
       var __defaultTheme = ${JSON.stringify(_defaultTheme)};
@@ -154,7 +170,7 @@ export default function(api: IApi, options: UmiPluginThemeSwitchOptions) {
 
   // 记住上次选择过的主题
   if (remember) {
-    api.addEntryCodeAhead(`
+    api.addEntryCodeAhead(() => `
       ;(function(){
         const theme = typeof localStorage !== 'undefined' ? window.localStorage.getItem('umi_theme') : '';
         if(!theme) return;
@@ -167,7 +183,7 @@ export default function(api: IApi, options: UmiPluginThemeSwitchOptions) {
 
   // 自动检测暗色主题，如果remember也为true，则只在页面没有设置过theme的情况下才检测
   if (autoDetectDarkMode && autoDetectDarkMode.enable) {
-    api.addEntryCodeAhead(`
+    api.addEntryCodeAhead(() => `
       ;(function(){
         const isBrowserDarkMode = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         if(!isBrowserDarkMode) return;

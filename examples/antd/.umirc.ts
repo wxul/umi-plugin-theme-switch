@@ -15,9 +15,8 @@ export default {
     '@box-shadow-base': 'var(--box-shadow)',
     '@icon-color': 'var(--font-main-color)',
   },
-  plugins: [
-    [
-      'umi-plugin-theme-switch',
+  plugins: ['umi-plugin-theme-switch'],
+  'theme-switch':
       {
         themes: [
           {
@@ -40,12 +39,4 @@ export default {
           },
         ],
       },
-    ],
-    [
-      'umi-plugin-react',
-      {
-        antd: true,
-      },
-    ],
-  ],
 } as IConfig;
