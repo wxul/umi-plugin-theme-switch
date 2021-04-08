@@ -7,6 +7,8 @@
 
 Umi plugin for theme switching based on css variables.
 
+> umi-plugin-theme-switch@1.x 版本只支持umi2+, 需要支持umi3可以使用umi-plugin-theme-switch@2+版本, 同时感谢 [@phobal](https://github.com/phobal) 的pr
+
 ## Install
 
 ```bash
